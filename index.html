@@ -1,0 +1,507 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#8b5cf6">
+
+  <title>Happy Birthday! 🎂</title>
+
+  <style>
+    :root {
+      --pink: #ff5da2;
+      --purple: #8b5cf6;
+      --dark: #291343;
+      --white: #ffffff;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      min-height: 100svh;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--white);
+      background: linear-gradient(
+        135deg,
+        #241044 0%,
+        #6d28d9 45%,
+        #ec4899 100%
+      );
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 24px 14px;
+      overflow-x: hidden;
+    }
+
+    #confetti {
+      position: fixed;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    .decoration {
+      position: fixed;
+      font-size: clamp(25px, 5vw, 50px);
+      opacity: 0.7;
+      animation: float 4s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    .d1 { top: 8%; left: 7%; }
+    .d2 { top: 16%; right: 8%; animation-delay: 1s; }
+    .d3 { bottom: 12%; left: 8%; animation-delay: 2s; }
+    .d4 { bottom: 10%; right: 8%; animation-delay: 0.5s; }
+
+    .card {
+      width: 100%;
+      max-width: 510px;
+      padding: clamp(24px, 6vw, 42px);
+      text-align: center;
+      background: rgba(255, 255, 255, 0.13);
+      border: 1px solid rgba(255, 255, 255, 0.35);
+      border-radius: 28px;
+      box-shadow: 0 24px 80px rgba(20, 5, 45, 0.3);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      position: relative;
+      z-index: 2;
+      animation: appear 0.9s ease both;
+    }
+
+    .eyebrow {
+      font-size: 0.76rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      opacity: 0.85;
+      margin-bottom: 22px;
+    }
+
+    .cake {
+      font-size: clamp(75px, 18vw, 105px);
+      line-height: 1.2;
+      display: block;
+      margin-bottom: 15px;
+      animation: bounce 2s ease-in-out infinite;
+    }
+
+    h1 {
+      font-size: clamp(2.3rem, 9vw, 3.8rem);
+      line-height: 1.08;
+      font-weight: 900;
+      letter-spacing: -1.5px;
+      margin-bottom: 12px;
+      overflow-wrap: anywhere;
+    }
+
+    h1 span {
+      display: block;
+      color: #ffd6e8;
+    }
+
+    .subtitle {
+      font-size: 1rem;
+      line-height: 1.7;
+      max-width: 370px;
+      margin: 0 auto 24px;
+      color: #fff2fb;
+    }
+
+    .divider {
+      width: 65px;
+      height: 4px;
+      background: #ffc4df;
+      border-radius: 10px;
+      margin: 0 auto 23px;
+    }
+
+    .message {
+      display: none;
+      background: rgba(255, 255, 255, 0.13);
+      border-radius: 18px;
+      padding: 20px;
+      margin: 0 0 22px;
+      line-height: 1.9;
+      font-size: 0.96rem;
+      text-align: left;
+      white-space: pre-line;
+      animation: appear 0.5s ease both;
+    }
+
+    .message.show {
+      display: block;
+    }
+
+    .message strong {
+      color: #ffd6e8;
+    }
+
+    .buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 5px;
+    }
+
+    button {
+      font: inherit;
+      font-weight: 700;
+      font-size: 0.96rem;
+      width: 100%;
+      min-height: 50px;
+      padding: 14px 20px;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.18);
+    }
+
+    button:active {
+      transform: scale(0.98);
+    }
+
+    button:focus-visible {
+      outline: 3px solid #ffe4f1;
+      outline-offset: 4px;
+    }
+
+    .primary {
+      color: #6d174c;
+      background: linear-gradient(135deg, #ffe0ed, #ffaad0);
+    }
+
+    .secondary {
+      color: white;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+    }
+
+    .footer {
+      font-size: 0.8rem;
+      opacity: 0.75;
+      margin-top: 26px;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(-8deg); }
+      50% { transform: translateY(-18px) rotate(8deg); }
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0) rotate(-3deg); }
+      50% { transform: translateY(-10px) rotate(3deg); }
+    }
+
+    @keyframes appear {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (min-width: 520px) {
+      .buttons {
+        flex-direction: row;
+      }
+
+      .buttons button {
+        flex: 1;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .card {
+        padding: 23px 18px;
+      }
+
+      .eyebrow {
+        letter-spacing: 2px;
+      }
+
+      .decoration {
+        opacity: 0.4;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="confetti" aria-hidden="true"></canvas>
+
+  <div class="decoration d1" aria-hidden="true">🎈</div>
+  <div class="decoration d2" aria-hidden="true">✨</div>
+  <div class="decoration d3" aria-hidden="true">🎁</div>
+  <div class="decoration d4" aria-hidden="true">💖</div>
+
+  <main class="card">
+    <p class="eyebrow">A special day • A special person</p>
+
+    <span class="cake" role="img" aria-label="Birthday cake">🎂</span>
+
+    <!-- CHANGE THE NAME BELOW -->
+    <h1>
+      Happy Birthday,
+      <span id="birthdayName">Ikee Bbyy!</span>
+    </h1>
+
+    <p class="subtitle">
+      Today is all about celebrating YOU BABE.
+      May your new year of life be filled with
+      love, laughter, blessings, and beautiful memories. 💖
+    </p>
+
+    <div class="divider"></div>
+
+    <section id="birthdayMessage" class="message"
+      aria-live="polite" aria-hidden="true">
+      <strong>To someone truly special, 💌</strong>
+
+      Today, I hope you are reminded of just how
+      wonderful you are. May every dream in your heart
+      find its way into reality.
+      
+      i apologise for the times ive not been available,
+      im so sorry Asa mu, i would do better moving forward.
+
+      May you find happiness in the little things,
+      strength in difficult moments, genuine people
+      who love you, and countless reasons to smile.
+
+      May this new chapter bring you success, peace,
+      good health, unexpected blessings, and memories
+      that make your heart full.
+
+      You deserve so much happiness babe
+      Keep shining, keep smiling, and never stop being
+      the amazing person and i love you .
+
+      <strong>Happy Birthday! 🎉🥳❤️</strong>
+    </section>
+
+    <div class="buttons">
+      <button id="messageButton" class="primary"
+        type="button" aria-expanded="false"
+        aria-controls="birthdayMessage">
+        💌 Open Your Message
+      </button>
+
+      <button id="celebrateButton" class="secondary"
+        type="button">
+        🎉 Celebrate Again!
+      </button>
+    </div>
+
+    <p class="footer">
+      Made with ❤️ just for you
+    </p>
+  </main>
+
+  <script>
+    // ========================================
+    // PERSONALIZE YOUR BIRTHDAY WEBSITE HERE
+    // ========================================
+
+    const CONFIG = {
+      name: "Ikee Bby!",
+
+      // Number of confetti pieces per celebration
+      confettiCount: 180
+    };
+
+    document.getElementById("birthdayName").textContent =
+      CONFIG.name;
+
+    // ========================================
+    // CONFETTI ANIMATION
+    // ========================================
+
+    const canvas = document.getElementById("confetti");
+    const ctx = canvas.getContext("2d");
+
+    let pieces = [];
+    let animationFrame = null;
+    let width = window.innerWidth;
+    let height = window.innerHeight;
+
+    const colors = [
+      "#ff5da2",
+      "#ffd166",
+      "#ffffff",
+      "#a7f3d0",
+      "#93c5fd",
+      "#c4b5fd",
+      "#fb7185"
+    ];
+
+    function resizeCanvas() {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+      width = window.innerWidth;
+      height = window.innerHeight;
+
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
+
+      canvas.style.width = width + "px";
+      canvas.style.height = height + "px";
+
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+
+    function createPiece(fromTop = false) {
+      return {
+        x: Math.random() * width,
+        y: fromTop ? -Math.random() * height : Math.random() * height,
+        size: Math.random() * 7 + 4,
+        speedY: Math.random() * 3 + 2,
+        speedX: Math.random() * 2 - 1,
+        rotation: Math.random() * 360,
+        rotationSpeed: Math.random() * 8 - 4,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        shape: Math.random() > 0.5 ? "rect" : "circle",
+        wobble: Math.random() * 0.08 + 0.02,
+        phase: Math.random() * Math.PI * 2
+      };
+    }
+
+    function drawPiece(piece) {
+      ctx.save();
+
+      ctx.translate(piece.x, piece.y);
+      ctx.rotate(piece.rotation * Math.PI / 180);
+      ctx.fillStyle = piece.color;
+
+      if (piece.shape === "circle") {
+        ctx.beginPath();
+        ctx.arc(0, 0, piece.size / 2, 0, Math.PI * 2);
+        ctx.fill();
+      } else {
+        ctx.fillRect(
+          -piece.size / 2,
+          -piece.size / 3,
+          piece.size,
+          piece.size * 0.65
+        );
+      }
+
+      ctx.restore();
+    }
+
+    function animateConfetti() {
+      ctx.clearRect(0, 0, width, height);
+
+      pieces.forEach(piece => {
+        piece.y += piece.speedY;
+        piece.x += piece.speedX + Math.sin(piece.phase) * 0.8;
+        piece.rotation += piece.rotationSpeed;
+        piece.phase += piece.wobble;
+
+        drawPiece(piece);
+      });
+
+      pieces = pieces.filter(piece => piece.y < height + 30);
+
+      if (pieces.length > 0) {
+        animationFrame = requestAnimationFrame(animateConfetti);
+      } else {
+        ctx.clearRect(0, 0, width, height);
+        animationFrame = null;
+      }
+    }
+
+    function celebrate() {
+      if (animationFrame !== null) {
+        cancelAnimationFrame(animationFrame);
+        animationFrame = null;
+      }
+
+      pieces = Array.from(
+        { length: CONFIG.confettiCount },
+        () => createPiece(true)
+      );
+
+      if (window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+      ).matches) {
+        // Respect reduced-motion preferences while still
+        // showing a brief static burst.
+        ctx.clearRect(0, 0, width, height);
+        pieces.forEach(drawPiece);
+        pieces = [];
+        setTimeout(() => {
+          ctx.clearRect(0, 0, width, height);
+        }, 900);
+        return;
+      }
+
+      animateConfetti();
+    }
+
+    // ========================================
+    // INTERACTIVE BIRTHDAY MESSAGE
+    // ========================================
+
+    const message = document.getElementById("birthdayMessage");
+    const messageButton = document.getElementById("messageButton");
+
+    messageButton.addEventListener("click", () => {
+      const isOpen = message.classList.toggle("show");
+
+      messageButton.textContent = isOpen
+        ? "💖 Close Your Message"
+        : "💌 Open Your Message";
+
+      messageButton.setAttribute("aria-expanded", String(isOpen));
+      message.setAttribute("aria-hidden", String(!isOpen));
+
+      if (isOpen) {
+        message.scrollIntoView({
+          behavior: window.matchMedia(
+            "(prefers-reduced-motion: reduce)"
+          ).matches ? "auto" : "smooth",
+          block: "nearest"
+        });
+
+        celebrate();
+      }
+    });
+
+    document.getElementById("celebrateButton")
+      .addEventListener("click", celebrate);
+
+    // Initialize
+    resizeCanvas();
+
+    window.addEventListener("resize", resizeCanvas);
+
+    // Start the birthday celebration when the page opens.
+    celebrate();
+  </script>
+</body>
+</html>
